@@ -2,22 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Schedule</title>
     <link rel="stylesheet" href = "css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1 id="app-title">Schedule</h1>
     <div id = "search-forms">
-       <p>Time: <button id="time-dropdown">Dropdown Menu</button>
-        Search: <input type="text" id="search-query"></input></p>
+        <h1 id="app-title">Schedule</h1>
+        Search: <input type="text" id="search-query"></input>
+        <button id="add">Add</button>
+        </p>
     </div>
     <div id = "map_and_schedule">
         <div id = "schedule">
+            <button>Clear List</button>
             <ul id="times">
-                <li>6:00am - Breakfast</li>
-                <li>12:00pm - Lunch</li>
+                <li>
+                    <img src="www.image.com"></img>
+                    <p>Venue Name</p>
+                    <p>12345 Address Street</p>
+                </li>
+                <li><img src="www.image.com"></li>
+                <p>Venue Name</p>
+                <p>67891 Address Way</p>
                 <li>6:00pm - Dinner</li>
+                <li>7:00pm - Gym</li>
             </ul>
             
         </div>
@@ -28,4 +37,6 @@
         
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="js/app.js"></script>
 </html>
