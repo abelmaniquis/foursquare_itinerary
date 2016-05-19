@@ -10,33 +10,54 @@
     <div id = "search-forms">
         <h1 id="app-title">Schedule</h1>
         Search: <input type="text" id="search-query"></input>
-        <button id="add">Add</button>
+        <button id="add">Add</button><button>Clear List</button>
         </p>
     </div>
-    <div id = "map_and_schedule">
-        <div id = "schedule">
-            <button>Clear List</button>
+    
+     <div id=map_and_schedule>
+         
+         
+        <div class ="container-element" id = "schedule">
             <ul id="times">
                 <li>
-                    <img src="www.image.com"></img>
-                    <p>Venue Name</p>
-                    <p>12345 Address Street</p>
+                    <ul class="stop">
+                        <li class="location"><img src="www.image.com"></img></li>
+                        <li class="name">Venue Name</li>
+                        <li class="address">12345 Address Street</li>
+                    </ul>
+                    <ul class="stop">
+                        <li class="location"><img src="www.image.com"></img></li>
+                        <li class="name">Venue Name</li>
+                        <li class="address">12345 Address Street</li>
+                    </ul>
+                    <ul class="stop">
+                        <li class="location"><img src="www.image.com"></img></li>
+                        <li class="name">Venue Name</li>
+                        <li class="address">12345 Address Street</li>
+                    </ul>
                 </li>
-                <li><img src="www.image.com"></li>
-                <p>Venue Name</p>
-                <p>67891 Address Way</p>
-                <li>6:00pm - Dinner</li>
-                <li>7:00pm - Gym</li>
+
             </ul>
             
         </div>
-        <div id="map">
+        
+        <div function class = "container-element" id="directions">
+            <h1>Directions go here</h1>
         </div>
+        
+        <div class = "container-element" id="map">
+            
+        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer>
+    </script>
     </div>
         
         
     </div>
 </body>
+<script src="https://maps.googleapis.com/maps/api/js"
+async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 <script src="js/app.js"></script>
 </html>

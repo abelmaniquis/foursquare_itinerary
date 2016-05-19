@@ -12,25 +12,37 @@
 }
 
 #search-query{
-    
+ width:50%;   
 }
 
 #map_and_schedule{
-height:38em;
-width:85em;
+height:50em;
+width:80em;
 border:solid 1px black;
 }
 
-#map{
-    background-image: url("mapScreenshot.png");
-    float:right;
-    width:50%;
+.container-element{
+    display:block;
+    display:inline-block;
+    width:33%;
     height:100%;
 }
 
 #schedule{
     float:left;
-    width:50%;
-    height:100%;
-    color:blue;
+    border: 1px solid black;
+}
+
+
+#directions{
+    float:left;
+    border: 1px solid black;
+}
+#map{
+   background-color:#ccc;
+   border:1px solid black;
+}
+
+ul{
+    list-style:none;
 }
