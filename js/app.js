@@ -1,18 +1,30 @@
-$(document).ready(function(){
-    initMap();
-   $("#add").click(addstop);
-});
+// my key: AIzaSyCTleyvmwLLUaGO42VlyfdVkC_eVUqWhTQ
 
-function addstop(){
-    console.log("this works");
+//#2d5be3
+$(document).ready(readyFunction);
+
+function readyFunction(){
+    initMap();
+    $("#add").click(addlocation);
+}
+function addlocation(){
+    var location = $("#search-query").val();
+    $("#times").append(
+        
+        "<img src=www.test-image-link.com>" + "</img>" +
+        "<li>" + location + "</li>" +
+        "<li>" + "address of location" + "</li>" +
+        "<li>" + "rating"
+    );
 }
 
 function initMap(){
-    var latvar = 32.7157;
-    var lngvar = -117.1611;
+    var myLatLng = {lat: 32.7157, lng: -117.1611};
     var mapDiv = document.getElementById('map');
+    var start = '7527 Celata Court, San Diego, CA';
+    var end = '9500 Gilman Drive, La Jolla, CA';
         var map = new google.maps.Map(mapDiv,{
-            center:{lat:32.7157,lng:-117.1611},
+            center: myLatLng,
             zoom: 8
         });
         
@@ -23,7 +35,7 @@ function initMap(){
     panel: document.getElementById('right-panel')
   });
         
-      displayRoute('7527 Celata Court, San Diego, CA', '9500 Gilman Drive, La Jolla, CA', directionsService,
+      displayRoute(start, end, directionsService,
       directionsDisplay);
 }
 
@@ -53,5 +65,5 @@ function displayRoute(origin, destination, service, display){
 }
 
 function computeTotalDistance(){
-    //
+    
 }
