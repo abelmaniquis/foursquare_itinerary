@@ -7,6 +7,7 @@ function readyFunction(){
     initMap();
     $("#add").click(addlocation);
 }
+
 function addlocation(){
     var place ={
         name: $("#search-query").val()
@@ -31,9 +32,8 @@ function initMap(){
         
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer({
-    draggable: true,
     map: map,
-    panel: document.getElementById('right-panel')
+    panel: document.getElementById('directions')
   });
         
       displayRoute(start, end, directionsService,
@@ -64,15 +64,21 @@ function displayRoute(origin, destination, service, display){
   });
 
 }
-
-function addWaypoint(){
-    
-}
-
 function displayFoursquareOutput(){
-    //Use search venues endpoint https://developer.foursquare.com/docs/venues/search
     
 }
+
+
+function accessFourSquare(){
+    $.ajax({
+        url:'https://api.foursquare.com/v2/venues/explore',
+        data:request,
+        dataType:"jsonp",
+        type:"GET",
+    })
+}
+
+
 
 
 
