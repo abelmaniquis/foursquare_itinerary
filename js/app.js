@@ -8,11 +8,12 @@ function readyFunction(){
     $("#add").click(addlocation);
 }
 function addlocation(){
-    var location = $("#search-query").val();
+    var place ={
+        name: $("#search-query").val()
+    };
     $("#times").append(
-        
         "<img src=www.test-image-link.com>" + "</img>" +
-        "<li>" + location + "</li>" +
+        "<li>" + place.name + "</li>" +
         "<li>" + "address of location" + "</li>" +
         "<li>" + "rating"
     );
@@ -28,7 +29,7 @@ function initMap(){
             zoom: 8
         });
         
-        var directionsService = new google.maps.DirectionsService;
+  var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer({
     draggable: true,
     map: map,
@@ -64,6 +65,17 @@ function displayRoute(origin, destination, service, display){
 
 }
 
-function computeTotalDistance(){
+function addWaypoint(){
     
 }
+
+function displayFoursquareOutput(){
+    //Use search venues endpoint https://developer.foursquare.com/docs/venues/search
+    
+}
+
+
+
+
+
+
