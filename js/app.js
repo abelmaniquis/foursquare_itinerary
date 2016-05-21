@@ -5,6 +5,7 @@ $(document).ready(readyFunction);
 
 function readyFunction(){
     initMap();
+    accessFourSquare();
     $("#add").click(addlocation);
 }
 
@@ -13,18 +14,24 @@ function addlocation(){
         name: $("#search-query").val()
     };
     $("#times").append(
-        "<img src=www.test-image-link.com>" + "</img>" +
+        "<img src=img-src.jpg>" + "</img>" +
         "<li>" + place.name + "</li>" +
         "<li>" + "address of location" + "</li>" +
         "<li>" + "rating"
     );
 }
 
+function createListItem(venue,address,rating){
+    
+    
+}
+
+
 function initMap(){
     var myLatLng = {lat: 32.7157, lng: -117.1611};
     var mapDiv = document.getElementById('map');
-    var start = '7527 Celata Court, San Diego, CA';
-    var end = '9500 Gilman Drive, La Jolla, CA';
+    var start = '9878 Carmel Mountain Rd (at Paseo Cardiel), San Diego';
+    var end = '9878 Carmel Mountain Rd (at Paseo Cardiel), San Diego';
         var map = new google.maps.Map(mapDiv,{
             center: myLatLng,
             zoom: 8
@@ -47,7 +54,7 @@ function displayRoute(origin, destination, service, display){
     destination: destination,
     waypoints:
       [{
-          location: '7930 Park Village Rd, San Diego, CA, 92129'
+          location: 'East Village, San Diego, CA'
       },{
           location: '8375 Entreken Way, San Diego, CA, 92129'
       },{
@@ -72,10 +79,18 @@ function displayFoursquareOutput(){
 function accessFourSquare(){
     $.ajax({
         url:'https://api.foursquare.com/v2/venues/explore',
-        data:request,
         dataType:"jsonp",
-        type:"GET",
-    })
+        type:"GET"
+    }).done(function(result){
+        console.log("look at this");
+    });
+    $.ajax({
+        url:'https://api.foursquare.com/v2/venues/VENUE_ID',
+        dataType:"jsonp",
+        type:"GET"
+    }).done(function(result){
+       console.log("and this too"); 
+    });
 }
 
 

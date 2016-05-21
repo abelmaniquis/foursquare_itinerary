@@ -25,6 +25,13 @@ Google Maps API notes
 
 Google Maps API key:
 AIzaSyCTleyvmwLLUaGO42VlyfdVkC_eVUqWhT
+------------------------------------------------------------------------------
+Search bar:
+
+http://blog.comperiosearch.com/blog/2012/06/27/make-an-instant-search-application-using-json-ajax-and-jquery/
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------
 Foursquare API Notes
@@ -102,3 +109,11 @@ google how to create a google-like AJAX search
 search results 
 
 .search-results-dropdown.onClick(this.append)
+
+
+
+
+-----------------------------------------------------------------------------------
+Creating a dropdown search menu
+
+https://www.sitepoint.com/10-ajaxjquery-autocomplete-tutorial-examples/

@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Schedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href = "css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div id = "search-forms">
         <h1 id="app-title">Schedule</h1>
-        <form action="dropdown" method="get">
-        Search: <input type="text" id="search-query">
-        </input>
-        </form>
         <p></p>
     </div>
     
      <div id=map_and_schedule>
-        <div class ="container-element" id = "schedule">
+         
+        <div class ="container-element" id = "foursquare-output">
             <h1>Foursquare Output</h1>
-            <ul id="times">
-            </ul>
+            <form>
+            Search: <input type="text" id="search-query"></input>
+            </form>
         </div>
+        
         
         <div function class = "container-element" id="directions">
             <p>Total Distance: <span id="total"></span></p>
