@@ -4,16 +4,16 @@
 $(document).ready(readyFunction);
 
 function readyFunction(){
+    console.log("Ready!");
     initMap();
-    accessFourSquare();
-    $("#add").click(addlocation);
+    $("#search").click(addlocation);
 }
 
 function addlocation(){
     var place ={
         name: $("#search-query").val()
     };
-    $("#times").append(
+    $("#foursquare-output").append(
         "<img src=img-src.jpg>" + "</img>" +
         "<li>" + place.name + "</li>" +
         "<li>" + "address of location" + "</li>" +
@@ -23,15 +23,13 @@ function addlocation(){
 
 function createListItem(venue,address,rating){
     
-    
 }
-
-
 function initMap(){
+    var location = '9878 Carmel Mountain Rd (at Paseo Cardiel), San Diego';
     var myLatLng = {lat: 32.7157, lng: -117.1611};
     var mapDiv = document.getElementById('map');
-    var start = '9878 Carmel Mountain Rd (at Paseo Cardiel), San Diego';
-    var end = '9878 Carmel Mountain Rd (at Paseo Cardiel), San Diego';
+    var start = location;
+    var end = location;
         var map = new google.maps.Map(mapDiv,{
             center: myLatLng,
             zoom: 8
@@ -71,12 +69,12 @@ function displayRoute(origin, destination, service, display){
   });
 
 }
-function displayFoursquareOutput(){
+function displayFSquareOutput(item){
     
 }
 
 
-function accessFourSquare(){
+function getFSquareOutput(){
     $.ajax({
         url:'https://api.foursquare.com/v2/venues/explore',
         dataType:"jsonp",

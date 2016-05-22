@@ -41,6 +41,14 @@ border:solid 1px black;
    background-color:#ccc;
 }
 
+#search-query{
+    color:black;
+}
+
 ul{
     list-style:none;
+}
+
+button{
+    color:black;
 }
