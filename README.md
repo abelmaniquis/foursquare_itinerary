@@ -6,6 +6,9 @@ Create a chain of directions from one location to another,
 
 
 User Experience:
+
+The app will find the user's location, and set that as both the start and end point.
+
 There will be four main elements in this page,
 a search bar and three columns.
 

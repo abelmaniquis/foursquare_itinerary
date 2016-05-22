@@ -6,7 +6,9 @@ $(document).ready(readyFunction);
 function readyFunction(){
     console.log("Ready!");
     initMap();
-    $("#search").click(addlocation);
+    $("#search").click(function(){
+      addlocation;
+    });
 }
 
 function addlocation(){
@@ -53,11 +55,8 @@ function displayRoute(origin, destination, service, display){
     waypoints:
       [{
           location: 'East Village, San Diego, CA'
-      },{
-          location: '8375 Entreken Way, San Diego, CA, 92129'
-      },{
-          location: '13500 Camino Del Sur, San Diego, CA, 92129'
-      }],
+      }
+      ],
     travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: true
   }, function(response, status) {
@@ -74,7 +73,7 @@ function displayFSquareOutput(item){
 }
 
 
-function getFSquareOutput(){
+function getFSquareinput(apiKey, authUrl, apiUrl){
     $.ajax({
         url:'https://api.foursquare.com/v2/venues/explore',
         dataType:"jsonp",
