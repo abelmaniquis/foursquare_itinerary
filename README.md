@@ -117,3 +117,8 @@ search results
 Creating a dropdown search menu
 
 https://www.sitepoint.com/10-ajaxjquery-autocomplete-tutorial-examples/
+
+
+Using the typeahead library
+
+http://twitter.github.io/typeahead.js/
