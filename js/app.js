@@ -26,24 +26,53 @@ function addlocation(){
 function createListItem(venue,address,rating){
     
 }
-function initMap(){
-    var location = '9878 Carmel Mountain Rd (at Paseo Cardiel), San Diego';
-    var myLatLng = {lat: 32.7157, lng: -117.1611};
-    var mapDiv = document.getElementById('map');
-    var start = location;
-    var end = location;
-        var map = new google.maps.Map(mapDiv,{
-            center: myLatLng,
-            zoom: 8
-        });
-        
-  var directionsService = new google.maps.DirectionsService;
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 6
+  });
+  var infoWindow = new google.maps.InfoWindow({map: map});
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      console.log(pos);
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Location found.');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+}
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+                              
+var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer({
     map: map,
     panel: document.getElementById('directions')
   });
         
-      displayRoute(start, end, directionsService,
+      displayRoute(pos, pos, directionsService,
       directionsDisplay);
 }
 
@@ -59,12 +88,16 @@ function displayRoute(origin, destination, service, display){
       ],
     travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: true
-  }, function(response, status) {
+    
+  }, 
+  
+  function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
       display.setDirections(response);
       } else {
       alert('Could not display directions due to: ' + status);
       }
+      
   });
 
 }
