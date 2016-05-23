@@ -1,3 +1,9 @@
+5/23/16 UPDATE:
+
+Plan of Attack:
+
+
+---------------------------------------------------------------------------------------------------------------------
 5/22/16 UPDATE:
 
 Added Geolocation to google maps, 
@@ -25,7 +31,7 @@ List of things to do:
 4. Increase the size of the search bar, and give the results a white background
 5. Display Foursquare JSON objects into the Search Bar 
           Currently dislaying objects from a test array
-  
+ 
 
 
 

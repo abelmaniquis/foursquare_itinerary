@@ -4,28 +4,19 @@ $(document).ready(readyFunction);
 
 function readyFunction(){
     initMap();
-    getFSquareinput();
     $("#search").click(function(){
       addlocation();
     });
 }
 
-
-//Add a location to the 
-function addlocation(){
-  console.log("This will add a location");
-}
 //Creates map and geotags current location.
 function initMap() {
-  
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
     zoom: 8
   });
- // var pos = map.center;
   
   var infoWindow = new google.maps.InfoWindow({map: map});              //This element will point to the location on the map
-
   if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(function(position) {
        var pos = {
@@ -35,6 +26,9 @@ function initMap() {
       infoWindow.setPosition(pos);
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
+      
+      getFSquareinput(pos);
+      
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -42,20 +36,10 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-
-var directionsService = new google.maps.DirectionsService;
-var directionsDisplay = new google.maps.DirectionsRenderer({
-    map: map,
-    panel: document.getElementById('directions')
-  });
   
-directionsDisplay.addListener('directions_changed', function() {
-    //computeTotalDistance(directionsDisplay.getDirections());
-  });
-displayRoute(pos,pos,directionsService,directionsDisplay)
-
-}
-
+  
+  
+};
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -63,7 +47,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   'Error: The Geolocation service failed.' :
   'Error: Your browser doesn\'t support geolocation.');
   
-var directionsService = new google.maps.DirectionsService;
+  var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer({
     map: map,
     panel: document.getElementById('directions')
@@ -72,8 +56,20 @@ var directionsService = new google.maps.DirectionsService;
       directionsDisplay);
 }
 
+//This function finds relevant venues within a radius of 10,000 meters around the current area.
+function getFSquareinput(coord){
+  $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
+  + coord.lat.toString() + ',' + coord.lng.toString() + 
+  '&limit=14&radius=10000&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN&v=20160523'
+  ,function(data) {
+  console.log(data); 
+  console.log(data.response);
+  //Use this to get the address of the next location
+  });
+}
 
-function displayRoute(origin, destination, service, display){
+
+/*function displayRoute(origin, destination, service, display){
   console.log("in the displayRoute function");
   service.route({
     origin: origin,
@@ -88,7 +84,7 @@ function displayRoute(origin, destination, service, display){
     avoidTolls: true
     
   }, 
-  
+
   function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
       display.setDirections(response);
@@ -98,20 +94,13 @@ function displayRoute(origin, destination, service, display){
       
   });
 
-}
+}*/
 
-//test output: https://developer.foursquare.com/docs/explore#req=venues/explore%3Fll%3D32.9379797,-117.1595663
-function getFSquareinput(){
-  $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
-  + pos.lat.toString() + ',' 
-  + pos.lng.toString() + 
-  '&limit=14&radius=1000&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN&v=20120101'
-  ,function(data) {
-  console.log(data); 
-  //Use this to get the address of the next location
-  
-  });
-}
+
+
+
+
+
 
 function substringMatcher(strs) {
   return function findMatches(q, cb) {
