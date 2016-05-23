@@ -6,38 +6,33 @@ function readyFunction(){
     console.log("Ready!");
     initMap();
     $("#search").click(function(){
-      addlocation;
+      addlocation();
     });
 }
+
+
 //Add a location to the 
-function addlocation(){
-    var place ={
-        name: $("#search-query").val()
-    };
-    $("#foursquare-output").append(
-        "<img src=img-src.jpg>" + "</img>" +
-        "<li>" + place.name + "</li>" +
-        "<li>" + "address of location" + "</li>" +
-        "<li>" + "rating"
-    );
+function addlocation(){;
 }
 //Creates map and geotags current location.
 function initMap() {
+  
+  var pos ={lat: 0.00, lng: 0.00}
+  
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
-    zoom: 6
+    zoom: 8
   });
-  var infoWindow = new google.maps.InfoWindow({map: map});
-
+  
+  var infoWindow = new google.maps.InfoWindow({map: map});              //This element will point to the location on the map
 
   if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
+        pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      console.log(pos.lat);
-      console.log(pos.lng);
+      console.log(pos);
       infoWindow.setPosition(pos);
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
@@ -48,7 +43,21 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+
+
+var directionsService = new google.maps.DirectionsService;
+var directionsDisplay = new google.maps.DirectionsRenderer({
+    map: map,
+    panel: document.getElementById('directions')
+  });
+  
+directionsDisplay.addListener('directions_changed', function() {
+    //computeTotalDistance(directionsDisplay.getDirections());
+  });
+displayRoute((pos.lat,pos.lng),(pos.lat,pos.lng),directionsService,directionsDisplay)
+
 }
+
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -67,14 +76,15 @@ var directionsService = new google.maps.DirectionsService;
 }
 
 function displayRoute(origin, destination, service, display){
-
+  console.log("in the displayRoute function");
   service.route({
     origin: origin,
     destination: destination,
     waypoints:
-      [{
+      [
+        /*{  
           location: 'East Village, San Diego, CA'
-      }
+      }*/
       ],
     travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: true
@@ -96,8 +106,8 @@ function displayRoute(origin, destination, service, display){
 //test output: https://developer.foursquare.com/docs/explore#req=venues/explore%3Fll%3D32.9379797,-117.1595663
 function getFSquareinput(){
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
-  + pos.lat + ',' 
-  + pos.lng + 
+  + pos.lat.toString() + ',' 
+  + pos.lng.toString() + 
   '&limit=14&radius=1000&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN&v=20120101'
   ,function(data) {
   console.log(data); 
@@ -129,7 +139,7 @@ function substringMatcher(strs) {
   
 };
 
-var searchTerms = ['Coffee','Mall','Nightclub','Library','Fast Food'];
+var searchTerms = ['Coffee','Mall','Nightclub','Library','Fast Food']; //These search terms are for testing only
 
 $('#search-query').typeahead({
   hint: true,

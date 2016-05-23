@@ -16,6 +16,23 @@ getFSquare function added in order to get FourSquare JSON object,
     need to pull the google lng and lat into this function
     need to make it search the venues around googles Geolocation coordinates
 
+List of things to do:
+
+1. Increase scope of position variable
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------
 
 
 
