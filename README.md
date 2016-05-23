@@ -1,3 +1,23 @@
+5/22/16 UPDATE:
+
+Added Geolocation to google maps, 
+    need to integrate directions with geolocation
+    Directions not appearing on Map
+    
+Also wondering whether the App really needs the API input on the
+far left column if the information is going to be displayed on the dropdown.
+    
+Added typeahead AJAX search
+    need to integrate Foursquare API Search results
+    Search is also transparent, need to make white background
+    
+getFSquare function added in order to get FourSquare JSON object,
+    currently it is not console logging results,
+    need to pull the google lng and lat into this function
+    need to make it search the venues around googles Geolocation coordinates
+
+
+
 
 Name of the App: Foursquare Itinerary
 
