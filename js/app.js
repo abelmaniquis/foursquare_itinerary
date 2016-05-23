@@ -4,6 +4,7 @@ $(document).ready(readyFunction);
 
 function readyFunction(){
     initMap();
+    getFSquareinput();
     $("#search").click(function(){
       addlocation();
     });
@@ -11,7 +12,8 @@ function readyFunction(){
 
 
 //Add a location to the 
-function addlocation(){;
+function addlocation(){
+  console.log("This will add a location");
 }
 //Creates map and geotags current location.
 function initMap() {
@@ -20,7 +22,7 @@ function initMap() {
     center: {lat: 0.00, lng: 0.00},
     zoom: 8
   });
-  var pos = map.center;
+ // var pos = map.center;
   
   var infoWindow = new google.maps.InfoWindow({map: map});              //This element will point to the location on the map
 
@@ -41,7 +43,6 @@ function initMap() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-console.log(pos);
 var directionsService = new google.maps.DirectionsService;
 var directionsDisplay = new google.maps.DirectionsRenderer({
     map: map,
@@ -51,7 +52,7 @@ var directionsDisplay = new google.maps.DirectionsRenderer({
 directionsDisplay.addListener('directions_changed', function() {
     //computeTotalDistance(directionsDisplay.getDirections());
   });
-displayRoute('North Park, San Diego, CA','North Park, San Diego,CA',directionsService,directionsDisplay)
+displayRoute(pos,pos,directionsService,directionsDisplay)
 
 }
 
@@ -98,7 +99,6 @@ function displayRoute(origin, destination, service, display){
   });
 
 }
-
 
 //test output: https://developer.foursquare.com/docs/explore#req=venues/explore%3Fll%3D32.9379797,-117.1595663
 function getFSquareinput(){
