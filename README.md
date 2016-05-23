@@ -81,6 +81,8 @@ location: contains address, city, state, postalCode, lat, lng, and distance.
 url: URL of the venue's website
 rating: Numerical rating of the venue (0 through 10). Returned as part of an explore result, excluded in search results. Not all venues will have a rating.
 
+API Explorer:
+https://developer.foursquare.com/docs/explore#req=venues/search%3FproviderId%3Dnymag%26linkedId%3D59455
 ____________________________________________________________
 
 

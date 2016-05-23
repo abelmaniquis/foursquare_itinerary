@@ -105,22 +105,16 @@ function displayFSquareOutput(item){
     
 }
 
-
-function getFSquareinput(apiKey, authUrl, apiUrl){
-    $.ajax({
-        url:'https://api.foursquare.com/v2/venues/explore',
-        dataType:"jsonp",
-        type:"GET"
-    }).done(function(result){
-        console.log("look at this");
-    });
-    $.ajax({
-        url:'https://api.foursquare.com/v2/venues/VENUE_ID',
-        dataType:"jsonp",
-        type:"GET"
-    }).done(function(result){
-       console.log("and this too"); 
-    });
+function getFSquareinput(){
+$.getJSON('https://api.foursquare.com/v2/venues/search?ll=32.7153,-117.1564&limit=14&radius=1000&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN&v=20120101'
+,function(data) {
+console.log(data); 
+});
+  
+  
+  
+  
+  
 }
 
 function substringMatcher(strs) {
