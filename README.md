@@ -18,7 +18,13 @@ getFSquare function added in order to get FourSquare JSON object,
 
 List of things to do:
 
-1. Increase scope of position variable
+1. Fix issues with the position variable
+            -make sure it can be read by your directions function and foursquare function
+2. fix Foursquare API endpoint so that it gets JSON object
+3. Increase the size of the search bar, and give the results a white background
+4. Display Foursquare JSON objects into the Search Bar 
+5.          Currently dislaying objects from a test array
+6.  
 
 
 

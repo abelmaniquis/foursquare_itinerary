@@ -3,7 +3,6 @@
 $(document).ready(readyFunction);
 
 function readyFunction(){
-    console.log("Ready!");
     initMap();
     $("#search").click(function(){
       addlocation();
@@ -17,22 +16,20 @@ function addlocation(){;
 //Creates map and geotags current location.
 function initMap() {
   
-  var pos ={lat: 0.00, lng: 0.00}
-  
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
     zoom: 8
   });
+  var pos = map.center;
   
   var infoWindow = new google.maps.InfoWindow({map: map});              //This element will point to the location on the map
 
   if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(function(position) {
-        pos = {
+       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      console.log(pos);
       infoWindow.setPosition(pos);
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
@@ -44,7 +41,7 @@ function initMap() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-
+console.log(pos);
 var directionsService = new google.maps.DirectionsService;
 var directionsDisplay = new google.maps.DirectionsRenderer({
     map: map,
@@ -54,7 +51,7 @@ var directionsDisplay = new google.maps.DirectionsRenderer({
 directionsDisplay.addListener('directions_changed', function() {
     //computeTotalDistance(directionsDisplay.getDirections());
   });
-displayRoute((pos.lat,pos.lng),(pos.lat,pos.lng),directionsService,directionsDisplay)
+displayRoute('North Park, San Diego, CA','North Park, San Diego,CA',directionsService,directionsDisplay)
 
 }
 
@@ -70,10 +67,10 @@ var directionsService = new google.maps.DirectionsService;
     map: map,
     panel: document.getElementById('directions')
   });
-        console.log(pos);
       displayRoute(pos, pos, directionsService,
       directionsDisplay);
 }
+
 
 function displayRoute(origin, destination, service, display){
   console.log("in the displayRoute function");
@@ -82,9 +79,9 @@ function displayRoute(origin, destination, service, display){
     destination: destination,
     waypoints:
       [
-        /*{  
+         { 
           location: 'East Village, San Diego, CA'
-      }*/
+         }
       ],
     travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: true
