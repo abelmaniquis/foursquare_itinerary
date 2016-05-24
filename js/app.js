@@ -4,9 +4,7 @@ $(document).ready(readyFunction);
 
 function readyFunction(){
     initMap();
-    $("#search").click(function(){
-      addlocation();
-    });
+    
 }
 
 //Creates map and geotags current location.
@@ -23,6 +21,7 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      //console.log(pos);
       infoWindow.setPosition(pos);
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
@@ -37,8 +36,6 @@ function initMap() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
   
-  
-  
 };
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -52,22 +49,72 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     map: map,
     panel: document.getElementById('directions')
   });
-      displayRoute(pos, pos, directionsService,
-      directionsDisplay);
 }
 
-//This function finds relevant venues within a radius of 10,000 meters around the current area.
-function getFSquareinput(coord){
+//This function finds relevant venues within a radius of 100,000 meters around the current area.
+//limit: returns up to 500 results
+
+
+var names = [];
+var coordinates = [];
+function getFSquareinput(coord, searchquery){
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
   + coord.lat.toString() + ',' + coord.lng.toString() + 
-  '&limit=14&radius=10000&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN&v=20160523'
+  '&limit=100' +
+  '&radius=100000' +
+  '&openNow=1' +
+  '&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1' +
+  '&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN' +
+  '&v=20160523'
   ,function(data) {
-  console.log(data); 
-  console.log(data.response);
-  //Use this to get the address of the next location
+    
+  console.log(data.response.groups[0].items.length);
+  var i = 0
+  while(i < (data.response.groups[0].items.length - 1)){
+    i ++;
+    console.log(data.response.groups[0].items[i].venue.name);
+    names.push(data.response.groups[0].items[i].venue.name);
+  }
   });
+
+console.log(names);
 }
 
+
+function substringMatcher(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+
+    // an array that will be populated with substring matches
+    matches = [];
+
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+
+    cb(matches);
+  };
+  
+};
+
+var searchTerms = names; 
+
+$('#search-query').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'searchTerms',
+  source: substringMatcher(searchTerms)
+});
 
 /*function displayRoute(origin, destination, service, display){
   console.log("in the displayRoute function");
@@ -97,42 +144,3 @@ function getFSquareinput(coord){
 }*/
 
 
-
-
-
-
-
-function substringMatcher(strs) {
-  return function findMatches(q, cb) {
-    var matches, substringRegex;
-
-    // an array that will be populated with substring matches
-    matches = [];
-
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
-
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        matches.push(str);
-      }
-    });
-
-    cb(matches);
-  };
-  
-};
-
-var searchTerms = ['Coffee','Mall','Nightclub','Library','Fast Food']; //These search terms are for testing only
-
-$('#search-query').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: 'searchTerms',
-  source: substringMatcher(searchTerms)
-});

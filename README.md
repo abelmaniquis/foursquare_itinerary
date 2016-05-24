@@ -1,7 +1,17 @@
 5/23/16 UPDATE:
 
-Plan of Attack:
+here are the paths to access certain attributes for a venue
 
+  console.log(data.response.groups[0]);
+  console.log(data.response.groups[0].items[0].venue.name);
+  console.log(data.response.groups[0].items);
+  console.log(data.response.groups[0].items[0].venue.name);
+  console.log(data.response.groups[0].items[0].venue.location.formattedAddress);
+  console.log(data.response.groups[0].items[0].venue.categories);
+  //access this to use on google maps
+  console.log([data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[0].venue.location.lng]);
+  
+ 
 
 ---------------------------------------------------------------------------------------------------------------------
 5/22/16 UPDATE:
