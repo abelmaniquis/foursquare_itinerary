@@ -34,7 +34,7 @@ function initMap() {
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
-      getFSquareinput(pos, venueNames,addresses,coordinates);
+      getFSquareinput(pos, venueNames,coordinates);
       mapDisplay(pos,map);
       typeterms(venueNames);
       
@@ -60,14 +60,14 @@ function mapDisplay(initialposition,directionmap){
       
       $("#addbutton").click(createWaypoint(places));
       
-     // displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
+      //displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
   
 }
 
 function createWaypoint(element){
   var newWaypoint = document.getElementById('search-query').value;
   console.log(newWaypoint);
-  element.push({location: newWaypoint});
+  element.push({location: "Jamba Juice"});
   $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
 }
 
@@ -85,7 +85,6 @@ function displayRoute(origin, destination, service, display,waypoints){
       } else {
       alert('Could not display directions due to: ' + status);
       }
-    
   });
 }
 
@@ -108,7 +107,7 @@ FourSquare Functions
 
 
 
-function getFSquareinput(coord,array1,array2,array3){
+function getFSquareinput(coord,array1,array2){
   
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
   + coord.lat.toString() + ',' + coord.lng.toString() + 
@@ -120,22 +119,32 @@ function getFSquareinput(coord,array1,array2,array3){
   '&v=20160523'
   ,
     function(data){
+
     var i = 0
+    var venueinfo = [];
     while(i < (data.response.groups[0].items.length - 1)){
-      i ++;
-      array1.push(data.response.groups[0].items[i].venue.name);
-      array2.push(data.response.groups[0].items[0].venue.location.formattedAddress);
-      array3.push([data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[0].venue.location.lng]);
-    }
+      venueinfo.push(
+      createFSquareObject(
+        data.response.groups[0].items[i].venue.name,
+      data.response.groups[0].items[i].venue.location.formattedAddress[0],
+      data.response.groups[0].items[i].venue.location.formattedAddress[0],
+     [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng]))
+      i++
+    };
+    
+    console.log(venueinfo)
   });
-
-console.log(array1);
-console.log(array2);
-console.log(array3);
 }
-
-function createFSquareOutput(){
+function createFSquareObject(name,address1,address2,coordinates,array){
+  var venueinfo =
+  {
+    name: name,
+    address1: address1,
+    address2: address2,
+    coordinates: coordinates,
+  }
   
+  return venueinfo;
 }
 
 
