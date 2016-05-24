@@ -118,6 +118,8 @@ function getFSquareinput(coord,array){
   while(i < (data.response.groups[0].items.length - 1)){
     i ++;
     array.push(data.response.groups[0].items[i].venue.name);
+    array.push(data.response.groups[0].items[0].venue.location.formattedAddress);
+    array.push([data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[0].venue.location.lng]);
   }
   });
 

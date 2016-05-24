@@ -1,6 +1,6 @@
 5/24/16 UPDATE:
 
-
+My task for today: give foursquare locations to the waypoints object in Google Maps
 
 
 --------------------------------------------------------------------------------------------------------------------------
