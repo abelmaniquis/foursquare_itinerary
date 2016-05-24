@@ -21,12 +21,13 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      //console.log(pos);
       infoWindow.setPosition(pos);
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
       getFSquareinput(pos);
+       mapDisplay(pos)
+      
       
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -44,11 +45,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   'Error: The Geolocation service failed.' :
   'Error: Your browser doesn\'t support geolocation.');
   
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer({
-    map: map,
-    panel: document.getElementById('directions')
-  });
 }
 
 //This function finds relevant venues within a radius of 100,000 meters around the current area.
@@ -56,19 +52,18 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 
 var names = [];
-var coordinates = [];
 function getFSquareinput(coord, searchquery){
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
   + coord.lat.toString() + ',' + coord.lng.toString() + 
-  '&limit=100' +
+  '&limit=500' +
   '&radius=100000' +
   '&openNow=1' +
   '&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1' +
   '&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN' +
   '&v=20160523'
   ,function(data) {
-    
   console.log(data.response.groups[0].items.length);
+  
   var i = 0
   while(i < (data.response.groups[0].items.length - 1)){
     i ++;
@@ -116,16 +111,26 @@ $('#search-query').typeahead({
   source: substringMatcher(searchTerms)
 });
 
-/*function displayRoute(origin, destination, service, display){
+
+
+function mapDisplay(initialposition){
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+    map: map,
+    panel: document.getElementById('directions')
+  });
+      
+      displayRoute(initialposition, initialposition, directionsService, directionsDisplay)
+}
+
+function displayRoute(origin, destination, service, display){
   console.log("in the displayRoute function");
   service.route({
     origin: origin,
     destination: destination,
     waypoints:
       [
-         { 
-          location: 'East Village, San Diego, CA'
-         }
+         
       ],
     travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: true
@@ -141,6 +146,5 @@ $('#search-query').typeahead({
       
   });
 
-}*/
-
+}
 
