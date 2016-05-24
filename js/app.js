@@ -4,8 +4,13 @@ $(document).ready(readyFunction);
 
 function readyFunction(){
     initMap();
-    
+    $("#addbutton").click(createWaypoint);
 }
+
+/*==========================
+Map Functions
+=============================*/
+
 
 //Creates map and geotags current location.
 function initMap() {
@@ -14,7 +19,7 @@ function initMap() {
     zoom: 8
   });
   
-  var infoWindow = new google.maps.InfoWindow({map: map});              //This element will point to the location on the map
+  var infoWindow = new google.maps.InfoWindow({map: map});              
   if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(function(position) {
        var pos = {
@@ -25,8 +30,9 @@ function initMap() {
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
+      
       getFSquareinput(pos);
-       mapDisplay(pos)
+      mapDisplay(pos,map)
       
       
     }, function() {
@@ -39,6 +45,44 @@ function initMap() {
   
 };
 
+
+function mapDisplay(initialposition,directionmap){
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+    map: directionmap,
+    panel: document.getElementById('directions')
+  });
+      
+      displayRoute(initialposition, initialposition, directionsService, directionsDisplay);
+  
+}
+
+
+function displayRoute(origin, destination, service, display){
+  service.route({
+    origin: origin,
+    destination: destination,
+    waypoints: //We will have to push coordinates into this waypoint array
+      [],
+    travelMode: google.maps.TravelMode.DRIVING,
+    avoidTolls: true
+    }, function(response, status) {
+       if (status === google.maps.DirectionsStatus.OK) {
+       display.setDirections(response);
+      } else {
+      alert('Could not display directions due to: ' + status);
+      }
+  });
+}
+
+function createWaypoint(){
+  var newWaypoint = document.getElementById('search-query').value;
+  console.log(newWaypoint);
+  $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
+}
+
+
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
@@ -47,33 +91,43 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   
 }
 
+
+/*=============================================
+FourSquare Functions
+===============================================*/
+
 //This function finds relevant venues within a radius of 100,000 meters around the current area.
-//limit: returns up to 500 results
+//limit: returns up to 100 results
 
 
 var names = [];
 function getFSquareinput(coord, searchquery){
+  
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
   + coord.lat.toString() + ',' + coord.lng.toString() + 
-  '&limit=500' +
+  '&limit=100' +
   '&radius=100000' +
   '&openNow=1' +
   '&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1' +
   '&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN' +
   '&v=20160523'
   ,function(data) {
-  console.log(data.response.groups[0].items.length);
-  
   var i = 0
   while(i < (data.response.groups[0].items.length - 1)){
     i ++;
-    console.log(data.response.groups[0].items[i].venue.name);
     names.push(data.response.groups[0].items[i].venue.name);
   }
   });
 
 console.log(names);
 }
+
+
+
+
+/*==========================================
+Typeahead Functions
+=============================================*/
 
 
 function substringMatcher(strs) {
@@ -96,7 +150,6 @@ function substringMatcher(strs) {
 
     cb(matches);
   };
-  
 };
 
 var searchTerms = names; 
@@ -112,39 +165,4 @@ $('#search-query').typeahead({
 });
 
 
-
-function mapDisplay(initialposition){
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-    map: map,
-    panel: document.getElementById('directions')
-  });
-      
-      displayRoute(initialposition, initialposition, directionsService, directionsDisplay)
-}
-
-function displayRoute(origin, destination, service, display){
-  console.log("in the displayRoute function");
-  service.route({
-    origin: origin,
-    destination: destination,
-    waypoints:
-      [
-         
-      ],
-    travelMode: google.maps.TravelMode.DRIVING,
-    avoidTolls: true
-    
-  }, 
-
-  function(response, status) {
-      if (status === google.maps.DirectionsStatus.OK) {
-      display.setDirections(response);
-      } else {
-      alert('Could not display directions due to: ' + status);
-      }
-      
-  });
-
-}
 

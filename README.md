@@ -1,14 +1,30 @@
+5/24/16 UPDATE:
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
 5/23/16 UPDATE:
 
 here are the paths to access certain attributes for a venue
 
   console.log(data.response.groups[0]);
-  console.log(data.response.groups[0].items[0].venue.name);
+  
+  
+  lisn of
   console.log(data.response.groups[0].items);
+  
+  name (of 0th entry):
   console.log(data.response.groups[0].items[0].venue.name);
+  
+  address in form of array:
   console.log(data.response.groups[0].items[0].venue.location.formattedAddress);
+  
+  
+  categories:
   console.log(data.response.groups[0].items[0].venue.categories);
-  //access this to use on google maps
+  
+  Latitude and longitude
   console.log([data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[0].venue.location.lng]);
   
  
