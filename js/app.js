@@ -36,7 +36,7 @@ function initMap() {
       
       getFSquareinput(pos, venueNames,coordinates);
       mapDisplay(pos,map);
-      typeterms(venueNames);
+      typeterms(getFSquareinput(pos,venueNames,coordinates));
       
       
     }, function() {
@@ -60,14 +60,14 @@ function mapDisplay(initialposition,directionmap){
       
       $("#addbutton").click(createWaypoint(places));
       
-      //displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
+      displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
   
 }
 
 function createWaypoint(element){
   var newWaypoint = document.getElementById('search-query').value;
   console.log(newWaypoint);
-  element.push({location: "Jamba Juice"});
+  element.push({location: newWaypoint});
   $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
 }
 
@@ -121,22 +121,22 @@ function getFSquareinput(coord,array1,array2){
     function(data){
 
     var i = 0
-    var venueinfo = [];
+    var venueInfo = [];
     while(i < (data.response.groups[0].items.length - 1)){
-      venueinfo.push(
+      venueInfo.push(
       createFSquareObject(
-        data.response.groups[0].items[i].venue.name,
-      data.response.groups[0].items[i].venue.location.formattedAddress[0],
-      data.response.groups[0].items[i].venue.location.formattedAddress[0],
-     [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng]))
+        data.response.groups[0].items[i].venue.name,              //name
+      data.response.groups[0].items[i].venue.location.formattedAddress[0],    //Address
+      data.response.groups[0].items[i].venue.location.formattedAddress[0],    //city
+     [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng])) //coordinates
       i++
     };
-    
-    console.log(venueinfo)
+    console.log(venueInfo);
+    return venueInfo;
   });
 }
 function createFSquareObject(name,address1,address2,coordinates,array){
-  var venueinfo =
+  var info =
   {
     name: name,
     address1: address1,
@@ -144,7 +144,7 @@ function createFSquareObject(name,address1,address2,coordinates,array){
     coordinates: coordinates,
   }
   
-  return venueinfo;
+  return info;
 }
 
 
