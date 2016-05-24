@@ -34,9 +34,10 @@ function initMap() {
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
-      getFSquareinput(pos, venueNames,coordinates);
+      getFSquareinput(pos,venueNames);
+      
       mapDisplay(pos,map);
-      typeterms(getFSquareinput(pos,venueNames,coordinates));
+      typeterms(venueNames);
       
       
     }, function() {
@@ -58,17 +59,17 @@ function mapDisplay(initialposition,directionmap){
   });
       var places = []
       
-      $("#addbutton").click(createWaypoint(places));
+      $("addbutton").click(createWaypoint(places))
       
-      displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
+     displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
   
 }
 
 function createWaypoint(element){
   var newWaypoint = document.getElementById('search-query').value;
-  console.log(newWaypoint);
-  element.push({location: newWaypoint});
-  $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
+    element.push({location: newWaypoint});
+    $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
+  console.log(element);
 }
 
 
@@ -105,10 +106,7 @@ FourSquare Functions
 //This function finds relevant venues within a radius of 100,000 meters around the current area.
 //limit: returns up to 100 results
 
-
-
-function getFSquareinput(coord,array1,array2){
-  
+function getFSquareinput(coord,array){
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
   + coord.lat.toString() + ',' + coord.lng.toString() + 
   '&limit=100' +
@@ -121,18 +119,22 @@ function getFSquareinput(coord,array1,array2){
     function(data){
 
     var i = 0
-    var venueInfo = [];
+    
     while(i < (data.response.groups[0].items.length - 1)){
-      venueInfo.push(
+      var objects = [];
+      objects.push(
       createFSquareObject(
         data.response.groups[0].items[i].venue.name,              //name
       data.response.groups[0].items[i].venue.location.formattedAddress[0],    //Address
-      data.response.groups[0].items[i].venue.location.formattedAddress[0],    //city
+      data.response.groups[0].items[i].venue.location.formattedAddress[1],    //city
      [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng])) //coordinates
+     
+     array.push(data.response.groups[0].items[i].venue.name + 
+     ": " + data.response.groups[0].items[i].venue.location.formattedAddress[0] 
+     + " " + data.response.groups[0].items[i].venue.location.formattedAddress[1]);
       i++
     };
-    console.log(venueInfo);
-    return venueInfo;
+    console.log(objects);
   });
 }
 function createFSquareObject(name,address1,address2,coordinates,array){
@@ -146,6 +148,7 @@ function createFSquareObject(name,address1,address2,coordinates,array){
   
   return info;
 }
+
 
 
 /*==============================================

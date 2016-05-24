@@ -3,6 +3,17 @@
 My task for today: give foursquare locations to the waypoints object in Google Maps
 
 
+Must handle another time zone,
+currently giving an empty array
+
+
+Current Issues:
+
+The app should be able to take user input from the search bar, and return the directions
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------------
 5/23/16 UPDATE:
 
