@@ -14,6 +14,8 @@ Map Functions
 
 //Creates map and geotags current location.
 function initMap() {
+  var venueNames = [];
+  
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
     zoom: 8
@@ -31,8 +33,9 @@ function initMap() {
       map.setCenter(pos);
       
       
-      getFSquareinput(pos);
-      mapDisplay(pos,map)
+      getFSquareinput(pos, venueNames);
+      mapDisplay(pos,map);
+      typeterms(venueNames);
       
       
     }, function() {
@@ -88,7 +91,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setContent(browserHasGeolocation ?
   'Error: The Geolocation service failed.' :
   'Error: Your browser doesn\'t support geolocation.');
-  
 }
 
 
@@ -100,8 +102,8 @@ FourSquare Functions
 //limit: returns up to 100 results
 
 
-var names = [];
-function getFSquareinput(coord, searchquery){
+
+function getFSquareinput(coord,array){
   
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
   + coord.lat.toString() + ',' + coord.lng.toString() + 
@@ -115,14 +117,12 @@ function getFSquareinput(coord, searchquery){
   var i = 0
   while(i < (data.response.groups[0].items.length - 1)){
     i ++;
-    names.push(data.response.groups[0].items[i].venue.name);
+    array.push(data.response.groups[0].items[i].venue.name);
   }
   });
 
-console.log(names);
+console.log(array);
 }
-
-
 
 
 /*==========================================
@@ -152,8 +152,8 @@ function substringMatcher(strs) {
   };
 };
 
-var searchTerms = names; 
-
+function typeterms(array){
+var searchTerms = array; 
 $('#search-query').typeahead({
   hint: true,
   highlight: true,
@@ -163,6 +163,4 @@ $('#search-query').typeahead({
   name: 'searchTerms',
   source: substringMatcher(searchTerms)
 });
-
-
-
+}
