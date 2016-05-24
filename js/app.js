@@ -4,7 +4,7 @@ $(document).ready(readyFunction);
 
 function readyFunction(){
     initMap();
-    $("#addbutton").click(createWaypoint);
+    //$("#addbutton").click(createWaypoint);
 }
 
 /*==========================
@@ -15,6 +15,8 @@ Map Functions
 //Creates map and geotags current location.
 function initMap() {
   var venueNames = [];
+  var addresses = [];
+  var coordinates = [];
   
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
@@ -32,8 +34,7 @@ function initMap() {
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
-      
-      getFSquareinput(pos, venueNames);
+      getFSquareinput(pos, venueNames,addresses,coordinates);
       mapDisplay(pos,map);
       typeterms(venueNames);
       
@@ -55,18 +56,27 @@ function mapDisplay(initialposition,directionmap){
     map: directionmap,
     panel: document.getElementById('directions')
   });
+      var places = []
       
-      displayRoute(initialposition, initialposition, directionsService, directionsDisplay);
+      $("#addbutton").click(createWaypoint(places));
+      
+     // displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
   
 }
 
+function createWaypoint(element){
+  var newWaypoint = document.getElementById('search-query').value;
+  console.log(newWaypoint);
+  element.push({location: newWaypoint});
+  $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
+}
 
-function displayRoute(origin, destination, service, display){
+
+function displayRoute(origin, destination, service, display,waypoints){
   service.route({
     origin: origin,
     destination: destination,
-    waypoints: //We will have to push coordinates into this waypoint array
-      [],
+    waypoints: waypoints,
     travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: true
     }, function(response, status) {
@@ -75,13 +85,8 @@ function displayRoute(origin, destination, service, display){
       } else {
       alert('Could not display directions due to: ' + status);
       }
+    
   });
-}
-
-function createWaypoint(){
-  var newWaypoint = document.getElementById('search-query').value;
-  console.log(newWaypoint);
-  $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
 }
 
 
@@ -103,33 +108,40 @@ FourSquare Functions
 
 
 
-function getFSquareinput(coord,array){
+function getFSquareinput(coord,array1,array2,array3){
   
   $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' 
   + coord.lat.toString() + ',' + coord.lng.toString() + 
   '&limit=100' +
-  '&radius=100000' +
+  '&radius=30000' +
   '&openNow=1' +
   '&client_id=KIG3G11STJJ03SUXC2ZVCDPKEWGTI0LSQSZEZ3Y2YFY2YNL1' +
   '&client_secret=ZWS32KM4WZE4PD3X5QEIV4Q3HGCJPDTOE1HB2QZ1FS03K2TN' +
   '&v=20160523'
-  ,function(data) {
-  var i = 0
-  while(i < (data.response.groups[0].items.length - 1)){
-    i ++;
-    array.push(data.response.groups[0].items[i].venue.name);
-    array.push(data.response.groups[0].items[0].venue.location.formattedAddress);
-    array.push([data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[0].venue.location.lng]);
-  }
+  ,
+    function(data){
+    var i = 0
+    while(i < (data.response.groups[0].items.length - 1)){
+      i ++;
+      array1.push(data.response.groups[0].items[i].venue.name);
+      array2.push(data.response.groups[0].items[0].venue.location.formattedAddress);
+      array3.push([data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[0].venue.location.lng]);
+    }
   });
 
-console.log(array);
+console.log(array1);
+console.log(array2);
+console.log(array3);
+}
+
+function createFSquareOutput(){
+  
 }
 
 
-/*==========================================
+/*==============================================
 Typeahead Functions
-=============================================*/
+================================================*/
 
 
 function substringMatcher(strs) {
