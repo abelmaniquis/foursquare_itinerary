@@ -23,7 +23,10 @@ function initMap() {
     zoom: 8
   });
   
-  var infoWindow = new google.maps.InfoWindow({map: map});              
+  var infoWindow = new google.maps.InfoWindow({map: map});  
+  
+  
+  
   if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(function(position) {
        var pos = {
@@ -34,7 +37,8 @@ function initMap() {
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
-      getFSquareinput(pos,venueNames);
+      var openVenues = getFSquareinput(pos,venueNames);
+      console.log(openVenues);
       
       mapDisplay(pos,map);
       typeterms(venueNames);
@@ -122,21 +126,26 @@ function getFSquareinput(coord,array){
     var i = 0
     
     while(i < (data.response.groups[0].items.length - 1)){
-      var objects = [];
-      objects.push(
+      
+      var venueName = data.response.groups[0].items[i].venue.name;
+      var venueAddress = data.response.groups[0].items[i].venue.location.formattedAddress[0];
+      var venueCity = data.response.groups[0].items[i].venue.location.formattedAddress[1];
+      var venueCoordinates = [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng];
+      
+      array.push(
       createFSquareObject(
-        data.response.groups[0].items[i].venue.name,              //name
-      data.response.groups[0].items[i].venue.location.formattedAddress[0],    //Address
-      data.response.groups[0].items[i].venue.location.formattedAddress[1],    //city
-     [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng])) //coordinates
+      venueName,venueAddress,venueCity,venueCoordinates)
+      )
+      
+      array.push(venueName + 
+      ": " + venueAddress 
+      + " " + venueCity);
      
-     array.push(data.response.groups[0].items[i].venue.name + 
-     ": " + data.response.groups[0].items[i].venue.location.formattedAddress[0] 
-     + " " + data.response.groups[0].items[i].venue.location.formattedAddress[1]);
       i++
     };
-    console.log(objects);
+    
   });
+  return array
 }
 function createFSquareObject(name,address1,address2,coordinates,array){
   var info =

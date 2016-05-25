@@ -55,11 +55,11 @@ button{
 
 .tt-query, /* UPDATE: newer versions use tt-input instead of tt-query */
 .tt-hint {
-    width: 100%;
+    width: 85%;
     height: 10px;
     padding: 8px 12px;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 0.96em;
+    line-height: 35px;
     border: 2px solid #ccc;
     border-radius: 8px;
     outline: none;
@@ -75,10 +75,10 @@ button{
 
 .tt-menu { /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
     width: 100%;
-    margin-top: 12px;
+    margin-top: 0px;
     padding: 8px 0;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 3px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
