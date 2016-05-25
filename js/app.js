@@ -60,7 +60,7 @@ function addWaypoint(pos,map,waypoints,userinput){
       i += 1;
     };
     console.log(waypoints);
-    
+    $("#directions").empty();
     mapDisplay(pos,map,waypoints);
     
 }
@@ -91,9 +91,6 @@ function mapDisplay(initialposition,directionmap,waypoints){
   });
      displayRoute(initialposition, initialposition, directionsService, directionsDisplay,waypoints);
 }
-
-
-
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
