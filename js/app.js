@@ -27,14 +27,17 @@ function initMap() {
       map.setCenter(pos);
       
       var openVenues = getFSquareinput(pos,venues);
+      
+      console.log(venues);
       console.log(openVenues);
       
+    var places = "";
+     var arr = [];
       
-      var places = "La Jolla Playhouse: 2910 La Jolla Village Dr (at Torrey Pines Rd) La Jolla, CA 92093";
-      var arr = [];
-      $("addbutton").click(createWaypoint(arr,places))
-      mapDisplay(pos,map,arr);
       typeterms(venues);
+      mapDisplay(pos,map,arr);
+      
+      //createWaypoint(arr,places);
       
       
     }, function() {
@@ -57,7 +60,6 @@ function mapDisplay(initialposition,directionmap,destinations){
       var places = destinations;
       
      displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
-  
 }
 
 function createWaypoint(array,location){
@@ -84,8 +86,6 @@ function displayRoute(origin, destination, service, display,waypoints){
       }
   });
 }
-
-
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -123,20 +123,13 @@ function getFSquareinput(coord,array){
       var venueCity = data.response.groups[0].items[i].venue.location.formattedAddress[1];
       var venueCoordinates = [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng];
       
-      array.push(
-      createFSquareObject(
-      venueName,venueAddress,venueCity,venueCoordinates)
-      )
+      array.push(venueName + "\n " + venueAddress +", " + venueCity);
       
-      array.push(venueName + 
-      " " + venueAddress 
-      + " " + venueCity);
-     
       i++
     };
     
   });
-  return array
+return array
 }
 function createFSquareObject(name,address1,address2,coordinates,array){
   var info =
