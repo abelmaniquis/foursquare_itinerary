@@ -66,7 +66,8 @@ function mapDisplay(initialposition,directionmap){
 }
 
 function createWaypoint(element){
-  var newWaypoint = document.getElementById('search-query').value;
+  //var newWaypoint = document.getElementById('search-query').value;
+   var newWaypoint = "Los Angeles, CA";
     element.push({location: newWaypoint});
     $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
   console.log(element);
