@@ -9,7 +9,6 @@ Map Functions
 //Creates map and geotags current location.
 function initMap() {
   var venues = [];
-
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
     zoom: 8
@@ -34,7 +33,6 @@ function initMap() {
        [];
       mapDisplay(pos,map,waypoints);
       
-      
       $("#addbutton").click(function(){
         var userinput = $('#search-query').val();
         console.log(userinput);
@@ -57,8 +55,8 @@ function addWaypoint(pos,map,waypoints,userinput){
       $("#foursquare-list").append("<li>" + waypoints[waypoints.length - 1].location + "</li>");
     console.log(waypoints);
     $("#directions").empty();
-    mapDisplay(pos,map,waypoints);
     
+    mapDisplay(pos,map,waypoints);
 }
 
 function displayRoute(origin, destination, service, display,waypoints){
@@ -124,7 +122,7 @@ function getFSquareinput(coord,array){
       var venueCity = data.response.groups[0].items[i].venue.location.formattedAddress[1];
       var venueCoordinates = [data.response.groups[0].items[0].venue.location.lat,data.response.groups[0].items[i].venue.location.lng];
       
-      array.push(venueName + "\n " + venueAddress +", " + venueCity);
+      array.push(venueName + ": " + venueAddress +", " + venueCity);
       
       i++
     };
