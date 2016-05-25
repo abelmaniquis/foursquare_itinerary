@@ -31,24 +31,14 @@ function initMap() {
       console.log(openVenues);
       typeterms(openVenues);
       var waypoints =
-       [{
-           location: 'Torrey Pines State Beach North Torrey Pines Rd. (Located One Mile S Of Del Mar), La Jolla, CA 92037'
-      },{
-          location: "Brothers' Provisions 16451 Bernardo Center Dr, San Diego, CA 92128"
-      }];
+       [];
       mapDisplay(pos,map,waypoints);
       
+      
       $("#addbutton").click(function(){
-      console.log(waypoints[0].location);
-      waypoints.push({
-        location: 'In-N-Out Burger 9410 Mira Mesa Blvd, San Diego, CA 92126'
-      });
-      console.log(waypoints);
-    var i = 0;
-    while(i < waypoints.length){
-      $("#foursquare-output").append("<p>" + waypoints[i].location + "</p>");
-      i += 1;
-    };
+        var userinput = $('#search-query').val();
+        console.log(userinput);
+        addWaypoint(pos,map,waypoints,userinput);
         });
       
     }, function() {
@@ -60,6 +50,20 @@ function initMap() {
   }
 };
 
+function addWaypoint(pos,map,waypoints,userinput){
+      waypoints.push({
+        location: userinput
+      });
+    var i = 0;
+    while(i < waypoints.length){
+      $("#foursquare-output").append("<p>" + waypoints[i].location + "</p>");
+      i += 1;
+    };
+    console.log(waypoints);
+    
+    mapDisplay(pos,map,waypoints);
+    
+}
 
 function displayRoute(origin, destination, service, display,waypoints){
   service.route({
