@@ -36,6 +36,7 @@ border:solid 1px black;
 #directions{
     background-color:#fff;
     float:left;
+    overflow:scroll;
 }
 #map{
    background-color:#ccc;
@@ -47,6 +48,10 @@ border:solid 1px black;
 
 ul{
     list-style:none;
+}
+
+li{
+    margin:0 0 10px 0;
 }
 
 button{
