@@ -9,7 +9,7 @@ Map Functions
 //Creates map and geotags current location.
 function initMap() {
   var venues = [];
-  
+
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
     zoom: 8
@@ -22,23 +22,34 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      
       infoWindow.setPosition(pos);
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
       var openVenues = getFSquareinput(pos,venues);
-      
-      console.log(venues);
       console.log(openVenues);
+      typeterms(openVenues);
+      var waypoints =
+       [{
+           location: 'Torrey Pines State Beach North Torrey Pines Rd. (Located One Mile S Of Del Mar), La Jolla, CA 92037'
+      },{
+          location: "Brothers' Provisions 16451 Bernardo Center Dr, San Diego, CA 92128"
+      }];
+      mapDisplay(pos,map,waypoints);
       
-    var places = "";
-     var arr = [];
-      
-      typeterms(venues);
-      mapDisplay(pos,map,arr);
-      
-      //createWaypoint(arr,places);
-      
+      $("#addbutton").click(function(){
+      console.log(waypoints[0].location);
+      waypoints.push({
+        location: 'In-N-Out Burger 9410 Mira Mesa Blvd, San Diego, CA 92126'
+      });
+      console.log(waypoints);
+    var i = 0;
+    while(i < waypoints.length){
+      $("#foursquare-output").append("<p>" + waypoints[i].location + "</p>");
+      i += 1;
+    };
+        });
       
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -47,35 +58,16 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-  
 };
-
-
-function mapDisplay(initialposition,directionmap,destinations){
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-    map: directionmap,
-    panel: document.getElementById('directions')
-  });
-      var places = destinations;
-      
-     displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
-}
-
-function createWaypoint(array,location){
-  //var newWaypoint = document.getElementById('search-query').value;
-   var newWaypoint = location;
-    array.push({location: newWaypoint});
-    $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
-  console.log(location);
-}
 
 
 function displayRoute(origin, destination, service, display,waypoints){
   service.route({
     origin: origin,
     destination: destination,
+    
     waypoints: waypoints,
+      
     travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: true
     }, function(response, status) {
@@ -86,6 +78,18 @@ function displayRoute(origin, destination, service, display,waypoints){
       }
   });
 }
+
+function mapDisplay(initialposition,directionmap,waypoints){
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+    map: directionmap,
+    panel: document.getElementById('directions')
+  });
+     displayRoute(initialposition, initialposition, directionsService, directionsDisplay,waypoints);
+}
+
+
+
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
