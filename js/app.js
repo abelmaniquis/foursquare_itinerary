@@ -1,31 +1,20 @@
 // my Google Maps key: AIzaSyCTleyvmwLLUaGO42VlyfdVkC_eVUqWhTQ
 //#2d5be3
-$(document).ready(readyFunction);
-
-function readyFunction(){
-    initMap();
-    //$("#addbutton").click(createWaypoint);
-}
+$(document).ready(initMap);
 
 /*==========================
 Map Functions
 =============================*/
 
-
 //Creates map and geotags current location.
 function initMap() {
-  var venueNames = [];
-  var addresses = [];
-  var coordinates = [];
+  var venues = [];
   
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0.00, lng: 0.00},
     zoom: 8
   });
-  
   var infoWindow = new google.maps.InfoWindow({map: map});  
-  
-  
   
   if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(function(position) {
@@ -37,11 +26,11 @@ function initMap() {
       infoWindow.setContent('Your Location.');
       map.setCenter(pos);
       
-      var openVenues = getFSquareinput(pos,venueNames);
+      var openVenues = getFSquareinput(pos,venues);
       console.log(openVenues);
       
       mapDisplay(pos,map);
-      typeterms(venueNames);
+      typeterms(venues);
       
       
     }, function() {
@@ -71,7 +60,7 @@ function mapDisplay(initialposition,directionmap){
 
 function createWaypoint(element){
   //var newWaypoint = document.getElementById('search-query').value;
-   var newWaypoint = "Los Angeles, CA";
+   var newWaypoint = "Fairmont Grand Del Mar 5300 Grand del Mar Ct (at Carmel Country Rd) San Diego, CA 92130";
     element.push({location: newWaypoint});
     $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
   console.log(element);
@@ -138,7 +127,7 @@ function getFSquareinput(coord,array){
       )
       
       array.push(venueName + 
-      ": " + venueAddress 
+      " " + venueAddress 
       + " " + venueCity);
      
       i++
