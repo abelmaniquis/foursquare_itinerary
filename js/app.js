@@ -29,7 +29,11 @@ function initMap() {
       var openVenues = getFSquareinput(pos,venues);
       console.log(openVenues);
       
-      mapDisplay(pos,map);
+      
+      var places = "La Jolla Playhouse: 2910 La Jolla Village Dr (at Torrey Pines Rd) La Jolla, CA 92093";
+      var arr = [];
+      $("addbutton").click(createWaypoint(arr,places))
+      mapDisplay(pos,map,arr);
       typeterms(venues);
       
       
@@ -44,26 +48,24 @@ function initMap() {
 };
 
 
-function mapDisplay(initialposition,directionmap){
+function mapDisplay(initialposition,directionmap,destinations){
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer({
     map: directionmap,
     panel: document.getElementById('directions')
   });
-      var places = []
-      
-      $("addbutton").click(createWaypoint(places))
+      var places = destinations;
       
      displayRoute(initialposition, initialposition, directionsService, directionsDisplay,places);
   
 }
 
-function createWaypoint(element){
+function createWaypoint(array,location){
   //var newWaypoint = document.getElementById('search-query').value;
-   var newWaypoint = "Fairmont Grand Del Mar 5300 Grand del Mar Ct (at Carmel Country Rd) San Diego, CA 92130";
-    element.push({location: newWaypoint});
+   var newWaypoint = location;
+    array.push({location: newWaypoint});
     $("#foursquare-output").append("<p>" + newWaypoint + "</p>");
-  console.log(element);
+  console.log(location);
 }
 
 
