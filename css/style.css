@@ -2,10 +2,13 @@
     box-sizing:border-box;
 }
 
+html{
+    font-family: 'Ubuntu', sans-serif;
+}
 
 
 #app-title{
-    color:#0732a2;
+    color:#2d5be3;
     text-align:center;
 }
 
@@ -15,12 +18,13 @@
     text-align:center;
 }
 
-
 #map_and_schedule{
 height:60em;
 width:90em;
 border:none;
 }
+
+
 
 .container-element{
     display:block;
@@ -39,6 +43,7 @@ border:none;
 
 #directions{
     background-color:#fff;
+    color:#2d5be3;
     float:left;
     overflow:scroll;
 }
