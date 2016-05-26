@@ -39,6 +39,11 @@ function initMap() {
         addWaypoint(pos,map,waypoints,userinput);
         });
       
+      $("#clearbutton").click(function(){
+        clearInputs(pos,map,waypoints);
+        console.log(waypoints);
+      });
+      
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -55,8 +60,14 @@ function addWaypoint(pos,map,waypoints,userinput){
       $("#foursquare-list").append("<li>" + waypoints[waypoints.length - 1].location + "</li>");
     console.log(waypoints);
     $("#directions").empty();
-    
     mapDisplay(pos,map,waypoints);
+}
+
+function clearInputs(pos,map,waypoints){
+  waypoints = [];
+  $("#foursquare-list").empty();
+  $("#directions").empty();
+  mapDisplay(pos,map,waypoints)
 }
 
 function displayRoute(origin, destination, service, display,waypoints){
