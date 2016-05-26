@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Schedule</title>
+    <title>Google Maps/Foursquare Itinerary</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href = "css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
@@ -11,6 +11,7 @@
 <body>
     <div id = "search-forms">
         <h1 id="app-title">Schedule</h1>
+        <p>Search powered by Foursquare. Directions powered by Google Maps.</p>
             <form>
             <input type = "text" id="search-query" placeholder = "Search"></input>
             <button id="addbutton" type="button">Add</button>
@@ -22,7 +23,7 @@
      <div id=map_and_schedule>
          
         <div class ="container-element" id = "foursquare-output">
-            <h1>Foursquare Output</h1>
+            <h1>Your Destinations:</h1>
             <ul id="foursquare-list">
                 
             </ul>
@@ -35,9 +36,7 @@
         <div class = "container-element" id="map">
         </div>
     </div>
-        
-        
-    </div>
+    
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 <script src="js/typeahead.js"></script>
