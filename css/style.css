@@ -2,10 +2,11 @@
     box-sizing:border-box;
 }
 
-html{
-    font-family: 'Ubuntu', sans-serif;
-}
 
+#modal{
+    margin-top:0.2em;
+    margin-left:2em;
+}
 
 #app-title{
     color:#2d5be3;
@@ -68,14 +69,16 @@ button{
     background-color:#82d456;
     padding:8px;
     color:#fff;
-    border-radius:10%;
+    border-radius:10px;
 }
 
 #search-query{
+ border:none;
  width: 85%;
  background-color:white;
  line-height:10px;
 }
+
 
 .tt-query, /* UPDATE: newer versions use tt-input instead of tt-query */
 .tt-hint {
@@ -94,7 +97,8 @@ button{
 }
 
 .tt-hint {
-    color: #999;
+    border-style:solid;
+    color: transparent;
 }
 
 .tt-menu { /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */

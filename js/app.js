@@ -29,8 +29,7 @@ function initMap() {
       var openVenues = getFSquareinput(pos,venues);
       console.log(openVenues);
       typeterms(openVenues);
-      var waypoints =
-       [];
+      var waypoints = [];
       mapDisplay(pos,map,waypoints);
       
       $("#addbutton").click(function(){
@@ -40,6 +39,7 @@ function initMap() {
         });
       
       $("#clearbutton").click(function(){
+        waypoints = [];
         clearInputs(pos,map,waypoints);
         console.log(waypoints);
       });
@@ -64,7 +64,6 @@ function addWaypoint(pos,map,waypoints,userinput){
 }
 
 function clearInputs(pos,map,waypoints){
-  waypoints = [];
   $("#foursquare-list").empty();
   $("#directions").empty();
   mapDisplay(pos,map,waypoints)
@@ -152,8 +151,6 @@ function createFSquareObject(name,address1,address2,coordinates,array){
   
   return info;
 }
-
-
 
 /*==============================================
 Typeahead Functions
