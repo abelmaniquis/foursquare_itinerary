@@ -2,18 +2,14 @@
     box-sizing:border-box;
 }
 
-
-#modal{
-    margin-top:0.2em;
-    margin-left:2em;
-}
-
 #app-title{
     color:#2d5be3;
     text-align:center;
 }
 
 #search-forms{
+    background-color:white;
+    height:100%;
     margin-left:auto;
     margin-right:auto;
     text-align:center;
@@ -24,8 +20,6 @@ height:60em;
 width:90em;
 border:none;
 }
-
-
 
 .container-element{
     display:block;
@@ -66,7 +60,7 @@ li{
 
 button{
     border:none;
-    background-color:#82d456;
+    background-color:#2d5be3;
     padding:8px;
     color:#fff;
     border-radius:10px;

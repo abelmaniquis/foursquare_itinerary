@@ -34,14 +34,12 @@ function initMap() {
       
       $("#addbutton").click(function(){
         var userinput = $('#search-query').val();
-        console.log(userinput);
         addWaypoint(pos,map,waypoints,userinput);
         });
       
       $("#clearbutton").click(function(){
         waypoints = [];
         clearInputs(pos,map,waypoints);
-        console.log(waypoints);
       });
       
     }, function() {
@@ -58,12 +56,13 @@ function addWaypoint(pos,map,waypoints,userinput){
         location: userinput
       });
       $("#foursquare-list").append("<li>" + waypoints[waypoints.length - 1].location + "</li>");
-    console.log(waypoints);
     $("#directions").empty();
     mapDisplay(pos,map,waypoints);
 }
 
 function clearInputs(pos,map,waypoints){
+  waypoints = [];
+  console.log(waypoints);
   $("#foursquare-list").empty();
   $("#directions").empty();
   mapDisplay(pos,map,waypoints)
@@ -73,7 +72,6 @@ function displayRoute(origin, destination, service, display,waypoints){
   service.route({
     origin: origin,
     destination: destination,
-    
     waypoints: waypoints,
       
     travelMode: google.maps.TravelMode.DRIVING,
