@@ -2,7 +2,12 @@
     box-sizing:border-box;
 }
 
+html{
+    font-family: 'Abel', sans-serif;
+}
+
 #app-title{
+    font-family: 'Abel', sans-serif;
     color:#2d5be3;
     text-align:center;
 }
@@ -13,6 +18,11 @@
     margin-left:auto;
     margin-right:auto;
     text-align:center;
+}
+
+form{
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #map_and_schedule{
@@ -122,5 +132,4 @@ button{
       width:100%;
   }
 }
-
 

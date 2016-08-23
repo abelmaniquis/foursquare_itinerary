@@ -55,7 +55,7 @@ function addWaypoint(pos,map,waypoints,userinput){
       waypoints.push({
         location: userinput
       });
-      $("#foursquare-list").append("<li>" + waypoints[waypoints.length - 1].location + "</li>");
+    $("#foursquare-list").append("<li>" + waypoints[waypoints.length - 1].location + "</li>");
     $("#directions").empty();
     mapDisplay(pos,map,waypoints);
 }
