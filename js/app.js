@@ -40,8 +40,6 @@ function initMap() {
         waypoints = [];
         clearInputs(pos, map, waypoints);
       });
-      
-      $('#foursquare-output').resizable();
 
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
