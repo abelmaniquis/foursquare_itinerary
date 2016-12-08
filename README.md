@@ -1,4 +1,4 @@
-**TECHNOLOGIES USED**
+TECHNOLOGIES USED:
 ==========
 HTML
 CSS
@@ -8,12 +8,12 @@ Google Maps API
 Typeaheadjs Library
 
 
-**SUMMARY:**
+SUMMARY:
 ==============
 This app uses the Foursquare API and the Google Maps API
 to do things.
 
-**DETAILS**
+DETAILS:
 =============
 The app runs primarily on the initMap function, which
 creates a map and geotags the user's current location.
@@ -22,7 +22,8 @@ This is where all of the Map's functions are stored,
 The venues array takes in the names of venues.
 
 
-**FourSquare Functions**:
+FourSquare Functions:
+===============
 
 The Foursquare functions begin on the getFSquareinput
 function, which finds relevant venues within a radius of
@@ -32,7 +33,8 @@ The limit has an upper limit of 100 results, so the app
 returns 100 results
 
 
-**Typeahead Functions**
+Typeahead Functions
+=================
 
 Finally, the final part of the project is the Typeahead.js
 functionality which allows the search bar to pop down
